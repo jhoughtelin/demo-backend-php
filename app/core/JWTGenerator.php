@@ -39,13 +39,13 @@ namespace Core;
 
 use Virgil\CryptoImpl\VirgilAccessTokenSigner;
 use Virgil\CryptoImpl\VirgilCrypto;
-use Virgil\Sdk\Web\Authorization\JwtGenerator;
+use Virgil\Sdk\Web\Authorization\JwtGenerator as SDKJWTGenerator;
 
 /**
  * Class AccessTokenGenerator
  * @package Core
  */
-class AccessTokenGenerator
+class JWTGenerator
 {
     /**
      * @param $identity
@@ -71,7 +71,7 @@ class AccessTokenGenerator
         $ttl = 3600; // JWT's lifetime
 
         // Setup JWT generator with necessary parameters:
-        $jwtGenerator = new JwtGenerator($privateKey, $apiKeyId, $accessTokenSigner, $appId, $ttl);
+        $jwtGenerator = new SDKJwtGenerator($privateKey, $apiKeyId, $accessTokenSigner, $appId, $ttl);
 
         // Generate JWT for a user
         // Remember that you must provide each user with his unique JWT

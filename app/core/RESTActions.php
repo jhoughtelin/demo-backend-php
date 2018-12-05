@@ -72,7 +72,7 @@ class RESTActions
 
     /**
      * Generate random token-string for identity and store it to the session (in this case, but you can use DB, etc.)
-     * Return {"token": "string"}
+     * Return {"authToken": "{string}"} or {"error-massage": "{string}"}
      */
     public function postAuthenticate()
     {
@@ -90,7 +90,7 @@ class RESTActions
                 $token = $tokenHelper->generateToken();
                 $tokenHelper->setTokenValue($token, $body['identity']);
 
-                $res = ResponseResult::format(['token' => $token], 200);
+                $res = ResponseResult::format(['authToken' => $token], 200);
             }
 
             return $response->withJson($res['data'], $res['status']);
@@ -99,7 +99,7 @@ class RESTActions
 
     /**
      * Check header Authorization: 'Bearer ${token}'
-     * Return JWT {"token": "string"}
+     * Return JWT {"virgilToken": "{string}"} or {"error-massage": "{string}"}
      */
     public function getVirgilJWT()
     {
@@ -117,7 +117,7 @@ class RESTActions
                 if($tokenHelper->isTokenExists($token[1])) {
                     $jwt = $tokenHelper->getJWT($token[1]);
 
-                    $res = ResponseResult::format(['token' => $jwt], 200);
+                    $res = ResponseResult::format(['virgilToken' => $jwt], 200);
                 }
                 else {
                     $res = ResponseResult::format(['error-message' => 'Invalid token'], 400);

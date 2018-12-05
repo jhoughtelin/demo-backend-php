@@ -1,10 +1,11 @@
-# Sample backend for PHP
+# Sample Backend for Node.js
 
-This repository contains a sample backend code that demonstrates how to generate a Virgil JWT using PHP.
+This repository contains a sample backend code that demonstrates how to generate a Virgil JWT using the [PHP SDK]
+(https://github.com/VirgilSecurity/virgil-sdk-php)
 
 ## Installation
 
-### Requirements
+### Prerequisites
 
 * PHP 5.6 and newer
 * virgil_crypto_php extension
@@ -31,7 +32,7 @@ $ git clone https://github.com/VirgilSecurity/sample-backend-php.git
 $ composer update
 ```
 
-### Virgil Credentials and .env file
+### Get Virgil Credentials
 
 If you don't have an account yet, [sign up for one](https://dashboard.virgilsecurity.com/signup) using your e-mail.
 
@@ -39,25 +40,16 @@ To generate a JWT the following values are required:
 
 | Variable Name                     | Description                    |
 |-----------------------------------|--------------------------------|
-| API_PRIVATE_KEY                   | Private key of your API key that is used to sign the JWTs. |
-| API_KEY_ID                        | ID of your API key. A unique string value that identifies your account in the Virgil Cloud. |
-| APP_ID                            | ID of your Virgil Application. |
+| API_PRIVATE_KEY                  | Private key of your API key that is used to sign the JWTs. |
+| API_KEY_ID               | ID of your API key. A unique string value that identifies your account in the Virgil Cloud. |
+| APP_ID                   | ID of your Virgil Application. |
 
-Create a `.env` file from `.env.example` and fill it with your credentials
+### Add Virgil Credentials to .env
 
-## Endpoints
-
-### /authenticate
-
-* Method: POST
-* Request body: `{"identity": {string}}`
-* Response: `{"token": {string}}` or `{"error-message": {string}}`
-
-### /virgil-jwt
-
-* Method: GET
-* Request: `header: {"Authorization": "Bearer {string}"}`
-* Response: `{"token": {string}}` or `{"error-message": {string}}`
+- open the project folder
+- create a `.env` file
+- fill it with your account credentials (take a look at the `.env.example` file to find out how to setup your own `.env` file)
+- save the `.env` file
 
 ## Configure and Run Server
 
@@ -67,6 +59,68 @@ front-controller and rewrite all requests to the `index.php` file.
 More info on how to configure and run a
 Apache/nginx/hhvm server can be found [here](https://www.slimframework.com/docs/v3/start/web-servers.html).
 
+## Specification
+
+### /authenticate endpoint
+This endpoint is an example of users authentication. It takes user `identity` and responds with unique token.
+
+```http
+POST https://<server_name>/authenticate HTTP/1.1
+Content-type: application/json;
+
+{
+    "identity": "string"
+}
+
+Response:
+
+{
+    "authToken": "string"
+}
+```
+
+### /virgil-jwt endpoint
+This endpoint checks whether a user is authorized by an authorization header. It takes user's `authToken`, finds related user identity and generates a `virgilToken` (which is [JSON Web Token](https://jwt.io/)) with this `identity` in a payload. Use this token to make authorized api calls to Virgil Cloud.
+
+```http
+GET https://<server_name>/virgil-jwt HTTP/1.1
+Content-type: application/json;
+Authorization: Bearer <authToken>
+
+Response:
+
+{
+    "virgilToken": "string"
+}
+```
+
+## Virgil JWT Generation
+To generate JWT, you need to use the `JwtGenerator` class from the SDK.
+
+```php
+    $privateKeyStr = $_ENV['PRIVATE_KEY'];
+    $apiKeyData = base64_decode($privateKeyStr);
+
+    $crypto = new VirgilCrypto();
+    $privateKey = $crypto->importPrivateKey($apiKeyData);
+
+    $accessTokenSigner = new VirgilAccessTokenSigner();
+
+    $appId = $_ENV['APP_ID']; // APP_ID
+    $apiKeyId = $_ENV['API_KEY_ID']; // API_KEY_ID
+    $ttl = 3600; // JWT's lifetime
+
+    $jwtGenerator = new JwtGenerator($privateKey, $apiKeyId, $accessTokenSigner, $appId, $ttl);
+
+    $token = $jwtGenerator->generateToken($identity);
+
+    $jwt = $token->__toString();
+});
+
+```
+Then you need to provide an HTTP endpoint which will return the JWT with the user's identity as a JSON.
+
+For more details take a look at the [JWTGenerator.php](app/core/JWTGenerator.php) file.
 
 ## License
 

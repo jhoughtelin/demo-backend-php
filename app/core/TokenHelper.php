@@ -97,9 +97,9 @@ class TokenHelper
      */
     public function getJWT($token)
     {
-        $accessTokenGenerator = new AccessTokenGenerator();
+        $JWTGenerator = new JWTGenerator();
 
-        return $accessTokenGenerator->generate($this->getIdentityValue($token));
+        return $JWTGenerator->generate($this->getIdentityValue($token));
     }
 
 }
