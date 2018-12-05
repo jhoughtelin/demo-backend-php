@@ -2,6 +2,8 @@
 
 This repository contains a sample backend code that demonstrates how to generate a Virgil JWT using the [PHP SDK](https://github.com/VirgilSecurity/virgil-sdk-php)
 
+Do not use this authentication in production. Requests to /virgil-jwt endpoint must be allowed for authenticated users. Use your application authorization strategy.
+
 ## Installation
 
 ### Prerequisites
