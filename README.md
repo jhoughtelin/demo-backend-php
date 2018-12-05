@@ -1,4 +1,4 @@
-# Sample Backend for Node.js
+# Sample Backend for PHP
 
 This repository contains a sample backend code that demonstrates how to generate a Virgil JWT using the [PHP SDK]
 (https://github.com/VirgilSecurity/virgil-sdk-php)
