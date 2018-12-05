@@ -1,7 +1,6 @@
 # Sample Backend for PHP
 
-This repository contains a sample backend code that demonstrates how to generate a Virgil JWT using the [PHP SDK]
-(https://github.com/VirgilSecurity/virgil-sdk-php)
+This repository contains a sample backend code that demonstrates how to generate a Virgil JWT using the [PHP SDK](https://github.com/VirgilSecurity/virgil-sdk-php)
 
 ## Installation
 
@@ -106,16 +105,15 @@ To generate JWT, you need to use the `JwtGenerator` class from the SDK.
 
     $accessTokenSigner = new VirgilAccessTokenSigner();
 
-    $appId = $_ENV['APP_ID']; // APP_ID
-    $apiKeyId = $_ENV['API_KEY_ID']; // API_KEY_ID
-    $ttl = 3600; // JWT's lifetime
+    $appId = $_ENV['APP_ID'];
+    $apiKeyId = $_ENV['API_KEY_ID'];
+    $ttl = 3600;
 
     $jwtGenerator = new JwtGenerator($privateKey, $apiKeyId, $accessTokenSigner, $appId, $ttl);
 
     $token = $jwtGenerator->generateToken($identity);
 
     $jwt = $token->__toString();
-});
 
 ```
 Then you need to provide an HTTP endpoint which will return the JWT with the user's identity as a JSON.
