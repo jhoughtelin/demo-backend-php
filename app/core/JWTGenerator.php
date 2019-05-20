@@ -48,11 +48,11 @@ use Virgil\Sdk\Web\Authorization\JwtGenerator as SDKJWTGenerator;
 class JWTGenerator
 {
     /**
-     * @param $identity
+     * @param string $identity
      * @return string
      * @throws \Virgil\CryptoImpl\VirgilCryptoException
      */
-    public function generate($identity)
+    public function generate(string $identity)
     {
         // API_KEY (You got this Key at Virgil Dashboard)
         $privateKeyStr = $_ENV['API_PRIVATE_KEY'];

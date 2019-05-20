@@ -37,6 +37,10 @@
 
 namespace Core;
 
+/**
+ * Class TokenHelper
+ * @package Core
+ */
 class TokenHelper
 {
     /**
