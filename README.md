@@ -99,7 +99,7 @@ Response:
 To generate JWT, you need to use the `JwtGenerator` class from the SDK.
 
 ```php
-    $privateKeyStr = $_ENV['PRIVATE_KEY'];
+    $privateKeyStr = $_ENV['API_PRIVATE_KEY'];
     $apiKeyData = base64_decode($privateKeyStr);
 
     $crypto = new VirgilCrypto();

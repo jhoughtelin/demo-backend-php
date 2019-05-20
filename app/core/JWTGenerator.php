@@ -55,7 +55,7 @@ class JWTGenerator
     public function generate($identity)
     {
         // API_KEY (You got this Key at Virgil Dashboard)
-        $privateKeyStr = $_ENV['PRIVATE_KEY'];
+        $privateKeyStr = $_ENV['API_PRIVATE_KEY'];
         $apiKeyData = base64_decode($privateKeyStr);
 
         // Crypto library imports a private key into a necessary format
