@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015-2018 Virgil Security Inc.
+ * Copyright (C) 2015-2019 Virgil Security Inc.
  *
  * All rights reserved.
  *
@@ -48,14 +48,14 @@ use Virgil\Sdk\Web\Authorization\JwtGenerator as SDKJWTGenerator;
 class JWTGenerator
 {
     /**
-     * @param $identity
+     * @param string $identity
      * @return string
      * @throws \Virgil\CryptoImpl\VirgilCryptoException
      */
-    public function generate($identity)
+    public function generate(string $identity)
     {
         // API_KEY (You got this Key at Virgil Dashboard)
-        $privateKeyStr = $_ENV['PRIVATE_KEY'];
+        $privateKeyStr = $_ENV['API_PRIVATE_KEY'];
         $apiKeyData = base64_decode($privateKeyStr);
 
         // Crypto library imports a private key into a necessary format

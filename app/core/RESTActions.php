@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015-2018 Virgil Security Inc.
+ * Copyright (C) 2015-2019 Virgil Security Inc.
  *
  * All rights reserved.
  *
@@ -53,12 +53,18 @@ class RESTActions
     private $app;
 
     /**
+     * @var TokenHelper
+     */
+    private $tokenHelper;
+
+    /**
      * RESTActions constructor.
      * @param App $app
      */
     public function __construct(App $app)
     {
         $this->app = $app;
+        $this->tokenHelper = new TokenHelper();
     }
 
     /**
@@ -86,9 +92,8 @@ class RESTActions
 
             } else {
 
-                $tokenHelper = new TokenHelper();
-                $token = $tokenHelper->generateToken();
-                $tokenHelper->setTokenValue($token, $body['identity']);
+                $token = $this->tokenHelper->generateToken();
+                $this->tokenHelper->setTokenValue($token, $body['identity']);
 
                 $res = ResponseResult::format(['authToken' => $token], 200);
             }
@@ -112,10 +117,8 @@ class RESTActions
                 $res = ResponseResult::format(['error-message' => 'Unauthorized'], 401);
             }
             else {
-                $tokenHelper = new TokenHelper();
-
-                if($tokenHelper->isTokenExists($token[1])) {
-                    $jwt = $tokenHelper->getJWT($token[1]);
+                if($this->tokenHelper->isTokenExists($token[1])) {
+                    $jwt = $this->tokenHelper->getJWT($token[1]);
 
                     $res = ResponseResult::format(['virgilToken' => $jwt], 200);
                 }

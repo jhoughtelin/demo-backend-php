@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (C) 2015-2018 Virgil Security Inc.
+ * Copyright (C) 2015-2019 Virgil Security Inc.
  *
  * All rights reserved.
  *
@@ -37,6 +37,10 @@
 
 namespace Core;
 
+/**
+ * Class TokenHelper
+ * @package Core
+ */
 class TokenHelper
 {
     /**
