@@ -15,7 +15,7 @@ Do not use this authentication in production. Requests to /virgil-jwt endpoint m
 
 - [Download](https://github.com/VirgilSecurity/sample-backend-php/releases) *virgil-test.zip*, unzip it and execute on your server [virgil-test.php](/_help/virgil-test.php) file.
 
-- [Download](https://github.com/VirgilSecurity/sample-backend-php/releases) and unzip *%YOUR_OS%_extensions.zip* archive according to your server operating system and PHP version.
+- [Download](https://github.com/VirgilSecurity/sample-backend-php/releases) and unzip *%YOUR_OS%_extension.zip* archive according to your server operating system and PHP version.
 
 - Make sure you have access to edit the php.ini file (for example, use *root* for the Linux/Darwin or run *cmd* under administrator for the Windows).
 - Copy extensions files to the extensions directory.
