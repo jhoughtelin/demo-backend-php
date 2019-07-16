@@ -64,7 +64,6 @@ class RESTActions
     public function __construct(App $app)
     {
         $this->app = $app;
-        $this->tokenHelper = new TokenHelper();
     }
 
     /**
