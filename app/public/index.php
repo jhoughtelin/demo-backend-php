@@ -40,11 +40,18 @@ use Dotenv\Dotenv;
 use Slim\App;
 
 require '../../vendor/autoload.php';
-require '../core/config.php';
 
 (new Dotenv("../../"))->load(); // Load .env variables (required string)
 
-$app = new App(['settings' => $config]); // Set up app
+$container = [
+    'settings' => [
+        'displayErrorDetails' => true,
+        'addContentLengthHeader' => false,
+    ],
+    'tokenHelper' => new \Core\TokenHelper(),
+];
+
+$app = new App($container); // Set up app
 
 (new RESTActions($app))->init(); // Initialize REST endpoints
 
