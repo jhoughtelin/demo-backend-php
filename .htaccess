@@ -2,6 +2,9 @@
 
    RewriteEngine On
 
+   RewriteCond %{HTTP:Authorization} ^(.*)
+   RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
    RewriteCond %{REQUEST_FILENAME} !-d
    RewriteCond %{REQUEST_FILENAME} !-f
    RewriteRule ^(.*)$ app/public/index.php [L,QSA]
