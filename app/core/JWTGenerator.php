@@ -55,7 +55,7 @@ class JWTGenerator
     public function generate(string $identity)
     {
         // API_KEY (You got this Key at Virgil Dashboard)
-        $privateKeyStr = $_ENV['API_PRIVATE_KEY'];
+        $privateKeyStr = $_ENV['APP_KEY'];
         $apiKeyData = base64_decode($privateKeyStr);
 
         // Crypto library imports a private key into a necessary format
@@ -67,7 +67,7 @@ class JWTGenerator
 
         // Use your App Credentials you got at Virgil Dashboard:
         $appId = $_ENV['APP_ID']; // APP_ID
-        $apiKeyId = $_ENV['API_KEY_ID']; // API_KEY_ID
+        $apiKeyId = $_ENV['APP_KEY_ID']; // API_KEY_ID
         $ttl = 3600; // JWT's lifetime
 
         // Setup JWT generator with necessary parameters:
