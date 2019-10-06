@@ -62,8 +62,8 @@ To generate a JWT the following values are required:
 
 | Variable Name                     | Description                    |
 |-----------------------------------|--------------------------------|
-| API_PRIVATE_KEY                  | Private key of your API key that is used to sign the JWTs. |
-| API_KEY_ID               | ID of your API key. A unique string value that identifies your account in the Virgil Cloud. |
+| APP_KEY                  | Private key of your API key that is used to sign the JWTs. |
+| APP_KEY_ID               | ID of your API key. A unique string value that identifies your account in the Virgil Cloud. |
 | APP_ID                   | ID of your Virgil Application. |
 
 ### Add Virgil Credentials to the .env
@@ -119,7 +119,7 @@ Response:
 To generate JWT, you need to use the `JwtGenerator` class from the SDK.
 
 ```php
-$privateKeyStr = $_ENV['API_PRIVATE_KEY'];
+$privateKeyStr = $_ENV['APP_KEY'];
 $apiKeyData = base64_decode($privateKeyStr);
 
 $crypto = new VirgilCrypto();
@@ -128,7 +128,7 @@ $privateKey = $crypto->importPrivateKey($apiKeyData);
 $accessTokenSigner = new VirgilAccessTokenSigner();
 
 $appId = $_ENV['APP_ID'];
-$apiKeyId = $_ENV['API_KEY_ID'];
+$apiKeyId = $_ENV['APP_KEY_ID'];
 $ttl = 3600;
 
 $jwtGenerator = new JwtGenerator($privateKey, $apiKeyId, $accessTokenSigner, $appId, $ttl);
