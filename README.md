@@ -6,6 +6,11 @@ Do not use this authentication in production. Requests to /virgil-jwt endpoint m
 
 ## Installation
 
+### Docker
+```shell script
+docker-compose up
+```
+
 ### Prerequisites
 
 * PHP7.2 / PHP7.3

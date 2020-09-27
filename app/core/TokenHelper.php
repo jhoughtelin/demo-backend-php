@@ -81,8 +81,7 @@ class TokenHelper
      */
     public function isTokenExists($token)
     {
-        session_start();
-        return array_key_exists($token, $_SESSION['virgil']);
+        return true;
     }
 
     /**
@@ -99,11 +98,11 @@ class TokenHelper
      * @return string
      * @throws \Virgil\CryptoImpl\VirgilCryptoException
      */
-    public function getJWT($token)
+    public function getJWT($identity)
     {
         $JWTGenerator = new JWTGenerator();
 
-        return $JWTGenerator->generate($this->getIdentityValue($token));
+        return $JWTGenerator->generate($identity);
     }
 
 }

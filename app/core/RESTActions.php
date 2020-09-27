@@ -73,6 +73,12 @@ class RESTActions
     {
         $this->postAuthenticate();
         $this->getVirgilJWT();
+        $this->app->get('/',function(Request $request,Response $response){echo '<p id="logs"></p>
+<h1>Hi!</h1>
+<script src="https://unpkg.com/@virgilsecurity/e3kit-browser@^2.3.3/dist/browser.umd.js"></script>
+<script src="/device.js"></script>
+<script src="/index.js"></script>
+'; });
     }
 
     /**
@@ -94,7 +100,7 @@ class RESTActions
                 $token = $this->tokenHelper->generateToken();
                 $this->tokenHelper->setTokenValue($token, $body['identity']);
 
-                $res = ResponseResult::format(['authToken' => $token], 200);
+                $res = ResponseResult::format(['authToken' => $body['identity']], 200);
             }
 
             return $response->withJson($res['data'], $res['status']);
