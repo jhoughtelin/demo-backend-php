@@ -1,0 +1,17 @@
+version: '2'
+services:
+  demo:
+    container_name: demo
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    - ./:/app
+    - ./docker/startup.sh:/usr/local/bin/startup.sh
+    - ./docker/php.ini:/usr/local/etc/php/php.ini
+    - ./docker/nginx.conf:/etc/nginx/nginx.conf
+    - ./docker/virgil_crypto_php.so:/usr/local/lib/php/extensions/no-debug-non-zts-20170718/virgil_crypto_php.so
+    ports:
+    - 80:80
+    environment:
+      ENVIRONMENT: development
